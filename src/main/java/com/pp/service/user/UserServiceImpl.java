@@ -9,8 +9,11 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * @author PP
+ */
 public class UserServiceImpl implements UserService{
-    //业务层都会调用Dao层
+
     private UserDao userDao;
 
     public UserServiceImpl(){
@@ -26,9 +29,9 @@ public class UserServiceImpl implements UserService{
             user = userDao.getLoginUser(connection, userCode);
 
             //添加对密码的匹配
-//            if(!user.getUserPassword().equals(password)){
-//                user = null;
-//            }
+            if(!user.getUserPassword().equals(password)){
+                user = null;
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }finally {
@@ -41,6 +44,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean updatePwd(int id, String password) {
+        System.out.println("进入UserServiceImpl_updatePwd方法...");
         Connection connection = null;
         boolean flag = false;
         try {
@@ -54,6 +58,21 @@ public class UserServiceImpl implements UserService{
             BaseDao.closeResource(connection,null,null);
         }
         return flag;
+    }
+
+    @Override
+    public String getPassword(String userCode) {
+        Connection connection = null;
+        String password = "";
+        try {
+            connection = BaseDao.getConnection();
+            password = userDao.getPassword(connection, userCode);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            BaseDao.closeResource(connection,null,null);
+        }
+        return password;
     }
 
     @Test

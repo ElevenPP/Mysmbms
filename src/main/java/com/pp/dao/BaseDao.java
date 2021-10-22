@@ -4,7 +4,9 @@ import java.io.*;
 import java.sql.*;
 import java.util.Properties;
 
-//操作数据库公共类
+/**
+ * 操作数据库公共类
+ */
 public class BaseDao {
     private static String driver;
     private static String url;
@@ -15,7 +17,10 @@ public class BaseDao {
         Properties properties = new Properties();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("E:/BadCode/IdeaProjects/JavaWeb/Mysmbms/src/main/resources/db.properties"));
+      BufferedReader br =
+          new BufferedReader(
+              new FileReader(
+                  "G:\\WORK\\Code\\kuangshenshuo\\Mysmbms\\target\\classes\\db.properties"));
             properties.load(br);
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +55,9 @@ public class BaseDao {
         return resultSet;
     }
 
-    //编写增删改公共方法
+    /**
+     * 编写增删改公共方法
+     */
     public static int excute(Connection connection,String sql,Object[] params,PreparedStatement preparedStatement) throws SQLException {
         preparedStatement = connection.prepareStatement(sql);
 
@@ -61,7 +68,8 @@ public class BaseDao {
         return updateRows;
     }
 
-    //释放资源
+
+    /** 关闭资源*/
     public static boolean closeResource(Connection connection,PreparedStatement preparedStatement,ResultSet resultSet){
         boolean flag = true;
         if (resultSet != null){

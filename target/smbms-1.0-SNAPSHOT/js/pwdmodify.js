@@ -1,4 +1,4 @@
-var oldpassword = null;
+﻿var oldpassword = null;
 var newpassword = null;
 var rnewpassword = null;
 var saveBtn = null;
@@ -69,8 +69,9 @@ $(function(){
 		oldpassword.blur();
 		newpassword.blur();
 		rnewpassword.blur();
-		if(oldpassword.attr("validateStatus") == "true" 
-			&& newpassword.attr("validateStatus") == "true"
+		if(
+			oldpassword.attr("validateStatus") == "true"&&
+ 			newpassword.attr("validateStatus") == "true"
 			&& rnewpassword.attr("validateStatus") == "true"){
 			if(confirm("确定要修改密码？")){
 				$("#userForm").submit();

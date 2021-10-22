@@ -51,16 +51,45 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public int updatePwd(Connection connection, int id, String password) throws SQLException {
-
+        System.out.println("进入UserDaoImpl_updatePwd方法...");
         PreparedStatement pstm = null;
         int excute = 0;
         if(connection != null) {
-            Object params[] = {id,password};
-            String sql = "update smbms_user set userPassword = ? where id = ?";
+            Object params[] = {password,id};
+            String sql = "UPDATE smbms_user SET userPassword = ? where id = ?";
+
+            System.out.println("开始执行sql");
+            System.out.println("update smbms_user set userPassword = "+password+" where id = "+id);
             excute = BaseDao.excute(connection, sql, params, pstm);
             BaseDao.closeResource(null, pstm,null);
         }
 
         return excute;
+    }
+
+    @Override
+    public String getPassword(Connection connection, String userCode) throws SQLException {
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        String userPassword = "";
+        String sql = "select userPassword from smbms_user where userCode = ?";
+        Object[] params = {userCode};
+        if (connection != null) {
+            rs = BaseDao.excute(connection, sql, params, rs, preparedStatement);
+            /*
+            * 使用rs.getString();前一定要加上rs.next();
+            * 原因：ResultSet对象代表SQL语句执行的结果集，维护指向其当前数据行的光标。
+            * 每调用一次next()方法，光标向下移动一行。最初它位于第一行之前，
+            * 因此第一次调用next()应把光标置于第一行上，使它成为当前行。
+            * 随着每次调用next()将导致光标向下移动一行。
+            * 在ResultSe对象及其t父辈Statement对象关闭之前，光标一直保持有效。
+            * */
+            if (rs.next()) {
+                userPassword = rs.getString("userPassword");
+            }
+            System.out.println(userPassword);
+        }
+        BaseDao.closeResource(connection,preparedStatement,rs);
+        return userPassword;
     }
 }

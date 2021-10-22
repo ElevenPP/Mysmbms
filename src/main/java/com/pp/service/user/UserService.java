@@ -8,4 +8,7 @@ public interface UserService {
 
     //根据用户id修改密码
     public boolean updatePwd(int id, String password);
+
+    //获得用户当前密码
+    public String getPassword(String userCode);
 }

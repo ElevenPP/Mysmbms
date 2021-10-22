@@ -1,4 +1,4 @@
-                                   <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/head.jsp"%>
 <div class="right">
@@ -14,7 +14,7 @@
                     <div class="info">${message}</div>
                     <div class="">
                         <label for="oldpassword">旧密码：</label>
-                        <input type="password" name="oldpassword" id="oldpassword" value=""> 
+                        <input type="password" name="oldpassword" id="oldpassword" value="">
 						<font color="red"></font>
                     </div>
                     <div>
